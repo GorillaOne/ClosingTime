@@ -15,6 +15,7 @@ namespace ClosingTime.Screens
         static bool HasBeenLoadedWithGlobalContentManager = false;
         #endif
         
+        FlatRedBall.Gum.GumIdb gumIdb;
         public Level1 () 
         	: base ()
         {
@@ -24,12 +25,14 @@ namespace ClosingTime.Screens
             LoadStaticContent(ContentManagerName);
             MapInstance = new FlatRedBall.TileGraphics.LayeredTileMap();
             MapInstance.Name = "MapInstance";
+            gumIdb = new FlatRedBall.Gum.GumIdb();
             
             
             base.Initialize(addToManagers);
         }
         public override void AddToManagers () 
         {
+            FlatRedBall.SpriteManager.AddDrawableBatch(gumIdb);
             base.AddToManagers();
             CustomInitialize();
         }
@@ -50,6 +53,7 @@ namespace ClosingTime.Screens
         }
         public override void Destroy () 
         {
+            FlatRedBall.SpriteManager.RemoveDrawableBatch(gumIdb);
             base.Destroy();
             
             FlatRedBall.Math.Collision.CollisionManager.Self.Relationships.Clear();
@@ -89,6 +93,12 @@ namespace ClosingTime.Screens
                 throw new System.ArgumentException("contentManagerName cannot be empty or null");
             }
             ClosingTime.Screens.GameScreen.LoadStaticContent(contentManagerName);
+            // Set the content manager for Gum
+            var contentManagerWrapper = new FlatRedBall.Gum.ContentManagerWrapper();
+            contentManagerWrapper.ContentManagerName = contentManagerName;
+            RenderingLibrary.Content.LoaderManager.Self.ContentLoader = contentManagerWrapper;
+            // Access the GumProject just in case it's async loaded
+            var throwaway = GlobalContent.GumProject;
             #if DEBUG
             if (contentManagerName == FlatRedBall.FlatRedBallServices.GlobalContentManager)
             {

@@ -40,6 +40,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
+    <Compile Include="DataTypes\Levels.Generated.cs" />
     <Compile Include="DataTypes\TileMapInfo.Generated.cs" />
     <Compile Include="Entities\Character.cs" />
     <Compile Include="Entities\Character.Generated.cs">
@@ -67,6 +68,55 @@
     <Compile Include="FileAliases.Generated.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GlobalContent.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\IButtonBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\ICheckBoxBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\IComboBoxBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\IListBoxBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\IListBoxItemBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\IPasswordBoxBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\IRadioButtonBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\IScrollBarBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\IScrollViewerBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\ISliderBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\ITextBoxBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\IToggleBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\ITreeViewBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\ITreeViewItemBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\Behaviors\IUserControlBehavior.Generated.cs" />
+    <Compile Include="GumRuntimes\CircleRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\ColoredRectangleRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\ContainerRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\ButtonRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\CheckBoxRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\ColoredFrameRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\ComboBoxRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\ListBoxItemRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\ListBoxRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\PasswordBoxRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\RadioButtonRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\ScrollBarRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\ScrollBarThumbRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\ScrollViewerRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\SliderRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\TextBoxRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\ToggleButtonRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\TreeViewItemRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\TreeViewRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\TreeViewToggleButtonRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\DefaultForms\UserControlRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\GameScreenGumRuntime.cs" />
+    <Compile Include="GumRuntimes\GameScreenGumRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\GumIdb.Generated.cs" />
+    <Compile Include="GumRuntimes\LevelContainerRuntime.cs" />
+    <Compile Include="GumRuntimes\LevelSelectRuntime.cs" />
+    <Compile Include="GumRuntimes\LevelSelectRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\MenuScreenGumRuntime.cs" />
+    <Compile Include="GumRuntimes\MenuScreenGumRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\NineSliceRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\PolygonRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\RectangleRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\SpriteRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\TextRuntime.Generated.cs" />
     <Compile Include="Input\GameScreen_Default.cs" />
     <Compile Include="Input\IManagesUserInteraction.cs" />
     <Compile Include="Performance\IEntityFactory.Generated.cs" />
@@ -116,14 +166,6 @@
     <Compile Include="Input\IUserInteractionState.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="FlatRedBall.Forms, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\DesktopGl\Debug\FlatRedBall.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="GumCoreXnaPc, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\DesktopGl\Debug\GumCoreXnaPc.dll</HintPath>
-    </Reference>
     <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\DesktopGl\Debug\MonoGame.Framework.dll</HintPath>
@@ -136,10 +178,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\DesktopGl\Debug\OpenTK.dll</HintPath>
     </Reference>
-    <Reference Include="StateInterpolation, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>Libraries\DesktopGl\Debug\StateInterpolation.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -147,6 +185,182 @@
     <Content Include="Content\shader.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="content\globalcontent\levels.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Levels</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\button.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>button</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\checkbox.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>checkbox</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\coloredframe.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>coloredframe</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\combobox.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>combobox</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\listbox.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>listbox</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\listboxitem.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>listboxitem</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\passwordbox.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>passwordbox</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\radiobutton.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>radiobutton</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\scrollbar.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>scrollbar</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\scrollbarthumb.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>scrollbarthumb</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\scrollviewer.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>scrollviewer</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\slider.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>slider</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\textbox.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>textbox</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\togglebutton.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>togglebutton</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\treeview.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>treeview</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\treeviewitem.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>treeviewitem</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\treeviewtogglebutton.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>treeviewtogglebutton</Name>
+    </None>
+    <None Include="content\gumproject\components\defaultforms\usercontrol.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>usercontrol</Name>
+    </None>
+    <None Include="content\gumproject\components\levelselect.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>levelselect</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font18arial.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>font18arial</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font18arial_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font18Arial_0</Name>
+    </None>
+    <None Include="content\gumproject\gumproject.gumx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>GumProject</Name>
+    </None>
+    <None Include="content\gumproject\screens\gamescreengum.gusx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>gamescreengum</Name>
+    </None>
+    <None Include="content\gumproject\screens\menuscreengum.gusx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>menuscreengum</Name>
+    </None>
+    <None Include="content\gumproject\standards\circle.gutx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>circle</Name>
+    </None>
+    <None Include="content\gumproject\standards\coloredrectangle.gutx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>coloredrectangle</Name>
+    </None>
+    <None Include="content\gumproject\standards\component.gutx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>component</Name>
+    </None>
+    <None Include="content\gumproject\standards\container.gutx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>container</Name>
+    </None>
+    <None Include="content\gumproject\standards\nineslice.gutx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>nineslice</Name>
+    </None>
+    <None Include="content\gumproject\standards\polygon.gutx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>polygon</Name>
+    </None>
+    <None Include="content\gumproject\standards\rectangle.gutx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>rectangle</Name>
+    </None>
+    <None Include="content\gumproject\standards\sprite.gutx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>sprite</Name>
+    </None>
+    <None Include="content\gumproject\standards\standardgraphics\red_bottomcenter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>red_bottomcenter</Name>
+    </None>
+    <None Include="content\gumproject\standards\standardgraphics\red_bottomleft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>red_bottomleft</Name>
+    </None>
+    <None Include="content\gumproject\standards\standardgraphics\red_bottomright.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>red_bottomright</Name>
+    </None>
+    <None Include="content\gumproject\standards\standardgraphics\red_center.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>red_center</Name>
+    </None>
+    <None Include="content\gumproject\standards\standardgraphics\red_left.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>red_left</Name>
+    </None>
+    <None Include="content\gumproject\standards\standardgraphics\red_right.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>red_right</Name>
+    </None>
+    <None Include="content\gumproject\standards\standardgraphics\red_topcenter.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>red_topcenter</Name>
+    </None>
+    <None Include="content\gumproject\standards\standardgraphics\red_topleft.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>red_topleft</Name>
+    </None>
+    <None Include="content\gumproject\standards\standardgraphics\red_topright.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>red_topright</Name>
+    </None>
+    <None Include="content\gumproject\standards\text.gutx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>text</Name>
+    </None>
+    <None Include="content\gumproject\uispritesheet.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>uispritesheet</Name>
+    </None>
     <None Include="content\screens\gamescreen\levels\level1map.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>Level1Map</Name>
@@ -219,6 +433,18 @@
     <ProjectReference Include="..\..\FlatRedBall\Engines\FlatRedBallXNA\FlatRedBall\FlatRedBallDesktopGL.csproj">
       <Project>{10bda06c-7269-4cce-ae2a-d445f414520a}</Project>
       <Name>FlatRedBallDesktopGL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FlatRedBall\Engines\Forms\FlatRedBall.Forms\FlatRedBall.Forms\FlatRedBall.Forms.DesktopGL.csproj">
+      <Project>{aa2297a1-6bb4-4165-89a6-c099f687085f}</Project>
+      <Name>FlatRedBall.Forms.DesktopGL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\FlatRedBall\Engines\Forms\FlatRedBall.Forms\StateInterpolation\StateInterpolation.DesktopGL.csproj">
+      <Project>{f0bdee46-0374-4278-b1c3-f91a76fe3a8d}</Project>
+      <Name>StateInterpolation.DesktopGL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Gum\GumCore\GumCoreXnaPc\GumCoreDesktopGL.csproj">
+      <Project>{fc2030b0-e60b-434d-a513-400270b8d7c6}</Project>
+      <Name>GumCoreDesktopGL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

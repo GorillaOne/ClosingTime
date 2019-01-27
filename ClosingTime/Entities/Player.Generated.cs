@@ -141,6 +141,12 @@ namespace ClosingTime.Entities
             }
             ContentManagerName = contentManagerName;
             ClosingTime.Entities.Character.LoadStaticContent(contentManagerName);
+            // Set the content manager for Gum
+            var contentManagerWrapper = new FlatRedBall.Gum.ContentManagerWrapper();
+            contentManagerWrapper.ContentManagerName = contentManagerName;
+            RenderingLibrary.Content.LoaderManager.Self.ContentLoader = contentManagerWrapper;
+            // Access the GumProject just in case it's async loaded
+            var throwaway = GlobalContent.GumProject;
             #if DEBUG
             if (contentManagerName == FlatRedBall.FlatRedBallServices.GlobalContentManager)
             {

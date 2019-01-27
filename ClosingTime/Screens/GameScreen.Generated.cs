@@ -48,6 +48,7 @@ namespace ClosingTime.Screens
         private FlatRedBall.Math.PositionedObjectList<ClosingTime.Entities.DoorExit> DoorExitList;
         private FlatRedBall.Math.Geometry.ShapeCollection BarArea;
         public virtual string MapName { get; set; }
+        FlatRedBall.Gum.GumIdb gumIdb;
         public GameScreen () 
         	: base ("GameScreen")
         {
@@ -67,6 +68,7 @@ namespace ClosingTime.Screens
             DoorExitList.Name = "DoorExitList";
             BarArea = new FlatRedBall.Math.Geometry.ShapeCollection();
             BarArea.Name = "BarArea";
+            gumIdb = new FlatRedBall.Gum.GumIdb();
             
             
             PostInitialize();
@@ -79,6 +81,7 @@ namespace ClosingTime.Screens
         public override void AddToManagers () 
         {
             Level1Map.AddToManagers(mLayer);
+            FlatRedBall.SpriteManager.AddDrawableBatch(gumIdb);
             Factories.PatronFactory.Initialize(ContentManagerName);
             Factories.PlayerFactory.Initialize(ContentManagerName);
             Factories.DoorExitFactory.Initialize(ContentManagerName);
@@ -135,6 +138,7 @@ namespace ClosingTime.Screens
         }
         public override void Destroy () 
         {
+            FlatRedBall.SpriteManager.RemoveDrawableBatch(gumIdb);
             base.Destroy();
             Factories.PatronFactory.Destroy();
             Factories.PlayerFactory.Destroy();
@@ -232,6 +236,12 @@ namespace ClosingTime.Screens
             {
                 throw new System.ArgumentException("contentManagerName cannot be empty or null");
             }
+            // Set the content manager for Gum
+            var contentManagerWrapper = new FlatRedBall.Gum.ContentManagerWrapper();
+            contentManagerWrapper.ContentManagerName = contentManagerName;
+            RenderingLibrary.Content.LoaderManager.Self.ContentLoader = contentManagerWrapper;
+            // Access the GumProject just in case it's async loaded
+            var throwaway = GlobalContent.GumProject;
             #if DEBUG
             if (contentManagerName == FlatRedBall.FlatRedBallServices.GlobalContentManager)
             {

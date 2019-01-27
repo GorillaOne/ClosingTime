@@ -56,7 +56,7 @@ namespace ClosingTime
 
 			CameraSetup.SetupCamera(SpriteManager.Camera, graphics);
 			GlobalContent.Initialize();
-			FlatRedBall.Screens.ScreenManager.Start(typeof(ClosingTime.Screens.Level1));
+			FlatRedBall.Screens.ScreenManager.Start(typeof(ClosingTime.Screens.MenuScreen));
 			FlatRedBallServices.IsWindowsCursorVisible = true; 
             base.Initialize();
         }

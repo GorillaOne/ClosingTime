@@ -1,0 +1,2 @@
+"Name (string, required)",LevelName (List<string>),ScreenName (List<string>)
+World 1,Level1,Level1

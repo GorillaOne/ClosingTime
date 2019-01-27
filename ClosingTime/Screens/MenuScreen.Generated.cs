@@ -14,7 +14,9 @@ namespace ClosingTime.Screens
         #if DEBUG
         static bool HasBeenLoadedWithGlobalContentManager = false;
         #endif
+        protected static FlatRedBall.Gum.GumIdb MenuScreenGum;
         
+        private ClosingTime.GumRuntimes.MenuScreenGumRuntime MenuScreenGumRuntime;
         public MenuScreen () 
         	: base ("MenuScreen")
         {
@@ -22,6 +24,7 @@ namespace ClosingTime.Screens
         public override void Initialize (bool addToManagers) 
         {
             LoadStaticContent(ContentManagerName);
+            MenuScreenGumRuntime = MenuScreenGum.GetGraphicalUiElementByName("this") as ClosingTime.GumRuntimes.MenuScreenGumRuntime;
             
             
             PostInitialize();
@@ -33,6 +36,7 @@ namespace ClosingTime.Screens
         }
         public override void AddToManagers () 
         {
+            MenuScreenGum.InstanceInitialize(); FlatRedBall.FlatRedBallServices.GraphicsOptions.SizeOrOrientationChanged += MenuScreenGum.HandleResolutionChanged;
             base.AddToManagers();
             AddToManagersBottomUp();
             CustomInitialize();
@@ -55,7 +59,13 @@ namespace ClosingTime.Screens
         public override void Destroy () 
         {
             base.Destroy();
+            FlatRedBall.SpriteManager.RemoveDrawableBatch(MenuScreenGum); FlatRedBall.FlatRedBallServices.GraphicsOptions.SizeOrOrientationChanged -= MenuScreenGum.HandleResolutionChanged;
+            MenuScreenGum = null;
             
+            if (MenuScreenGumRuntime != null)
+            {
+                MenuScreenGumRuntime.RemoveFromManagers();
+            }
             FlatRedBall.Math.Collision.CollisionManager.Self.Relationships.Clear();
             CustomDestroy();
         }
@@ -72,6 +82,10 @@ namespace ClosingTime.Screens
         }
         public virtual void RemoveFromManagers () 
         {
+            if (MenuScreenGumRuntime != null)
+            {
+                MenuScreenGumRuntime.RemoveFromManagers();
+            }
         }
         public virtual void AssignCustomVariables (bool callOnContainedElements) 
         {
@@ -88,6 +102,12 @@ namespace ClosingTime.Screens
             {
                 throw new System.ArgumentException("contentManagerName cannot be empty or null");
             }
+            // Set the content manager for Gum
+            var contentManagerWrapper = new FlatRedBall.Gum.ContentManagerWrapper();
+            contentManagerWrapper.ContentManagerName = contentManagerName;
+            RenderingLibrary.Content.LoaderManager.Self.ContentLoader = contentManagerWrapper;
+            // Access the GumProject just in case it's async loaded
+            var throwaway = GlobalContent.GumProject;
             #if DEBUG
             if (contentManagerName == FlatRedBall.FlatRedBallServices.GlobalContentManager)
             {
@@ -98,6 +118,7 @@ namespace ClosingTime.Screens
                 throw new System.Exception("This type has been loaded with a Global content manager, then loaded with a non-global.  This can lead to a lot of bugs");
             }
             #endif
+            Gum.Wireframe.GraphicalUiElement.IsAllLayoutSuspended = true;  MenuScreenGum = new FlatRedBall.Gum.GumIdb();  MenuScreenGum.LoadFromFile("content/gumproject/screens/menuscreengum.gusx");  MenuScreenGum.AssignReferences();Gum.Wireframe.GraphicalUiElement.IsAllLayoutSuspended = false; MenuScreenGum.Element.UpdateLayout(); MenuScreenGum.Element.UpdateLayout();
             CustomLoadStaticContent(contentManagerName);
         }
         public override void PauseThisScreen () 
@@ -113,14 +134,29 @@ namespace ClosingTime.Screens
         [System.Obsolete("Use GetFile instead")]
         public static object GetStaticMember (string memberName) 
         {
+            switch(memberName)
+            {
+                case  "MenuScreenGum":
+                    return MenuScreenGum;
+            }
             return null;
         }
         public static object GetFile (string memberName) 
         {
+            switch(memberName)
+            {
+                case  "MenuScreenGum":
+                    return MenuScreenGum;
+            }
             return null;
         }
         object GetMember (string memberName) 
         {
+            switch(memberName)
+            {
+                case  "MenuScreenGum":
+                    return MenuScreenGum;
+            }
             return null;
         }
     }

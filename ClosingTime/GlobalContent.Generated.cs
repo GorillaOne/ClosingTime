@@ -13,19 +13,37 @@ using FlatRedBall.AI.Pathfinding;
 using FlatRedBall.Utilities;
 using BitmapFont = FlatRedBall.Graphics.BitmapFont;
 using FlatRedBall.Localization;
+using ClosingTime.DataTypes;
+using FlatRedBall.IO.Csv;
 
 namespace ClosingTime
 {
     public static partial class GlobalContent
     {
         
+        public static System.Collections.Generic.Dictionary<string, ClosingTime.DataTypes.Levels> Levels { get; set; }
+        public static FlatRedBall.Gum.GumIdb GumProject { get; set; }
         [System.Obsolete("Use GetFile instead")]
         public static object GetStaticMember (string memberName) 
         {
+            switch(memberName)
+            {
+                case  "Levels":
+                    return Levels;
+                case  "GumProject":
+                    return GumProject;
+            }
             return null;
         }
         public static object GetFile (string memberName) 
         {
+            switch(memberName)
+            {
+                case  "Levels":
+                    return Levels;
+                case  "GumProject":
+                    return GumProject;
+            }
             return null;
         }
         public static bool IsInitialized { get; private set; }
@@ -34,13 +52,32 @@ namespace ClosingTime
         public static void Initialize () 
         {
             
+            if (Levels == null)
+            {
+                {
+                    // We put the { and } to limit the scope of oldDelimiter
+                    char oldDelimiter = FlatRedBall.IO.Csv.CsvFileManager.Delimiter;
+                    FlatRedBall.IO.Csv.CsvFileManager.Delimiter = ',';
+                    System.Collections.Generic.Dictionary<string, ClosingTime.DataTypes.Levels> temporaryCsvObject = new System.Collections.Generic.Dictionary<string, ClosingTime.DataTypes.Levels>();
+                    FlatRedBall.IO.Csv.CsvFileManager.CsvDeserializeDictionary<string, ClosingTime.DataTypes.Levels>("content/globalcontent/levels.csv", temporaryCsvObject);
+                    FlatRedBall.IO.Csv.CsvFileManager.Delimiter = oldDelimiter;
+                    Levels = temporaryCsvObject;
+                }
+            }
+            FlatRedBall.Gum.GumIdb.StaticInitialize("content/gumproject/gumproject.gumx"); FlatRedBall.Gum.GumIdbExtensions.RegisterTypes();  FlatRedBall.Gui.GuiManager.BringsClickedWindowsToFront = false;FlatRedBall.FlatRedBallServices.GraphicsOptions.SizeOrOrientationChanged += (not, used) => { FlatRedBall.Gum.GumIdb.UpdateDisplayToMainFrbCamera(); };Gum.Wireframe.GraphicalUiElement.ShowLineRectangles = false;
             			IsInitialized = true;
+            // Added by GumPlugin becasue of the Show Mouse checkbox on the .gumx:
+            FlatRedBall.FlatRedBallServices.Game.IsMouseVisible = true;
             #if DEBUG && WINDOWS
             InitializeFileWatch();
             #endif
         }
         public static void Reload (object whatToReload) 
         {
+            if (whatToReload == Levels)
+            {
+                FlatRedBall.IO.Csv.CsvFileManager.UpdateDictionaryValuesFromCsv(Levels, "content/globalcontent/levels.csv");
+            }
         }
         #if DEBUG && WINDOWS
         static System.IO.FileSystemWatcher watcher;
@@ -64,6 +101,10 @@ namespace ClosingTime
                 System.Threading.Thread.Sleep(500);
                 var fullFileName = e.FullPath;
                 var relativeFileName = FlatRedBall.IO.FileManager.MakeRelative(FlatRedBall.IO.FileManager.Standardize(fullFileName));
+                if (relativeFileName == "content/gumproject/gumproject.gumx")
+                {
+                    Reload(GumProject);
+                }
             }
             catch{}
         }
