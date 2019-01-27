@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objecttypes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <objecttype name="DoorExit" />
+  <objecttype name="Patron">
+    <property name="Mass" type="float" default="10" />
+    <property name="MaxForce" type="float" default="50" />
+    <property name="MaxSpeed" type="float" default="50" />
+    <property name="MaxReactionDistance" type="float" default="100" />
+  </objecttype>
+  <objecttype name="Player">
+    <property name="DistanceToArrive" type="float" default="50" />
+    <property name="Mass" type="float" default="10" />
+    <property name="MaxForce" type="float" default="200" />
+    <property name="MaxSpeed" type="float" />
+  </objecttype>
+</objecttypes>

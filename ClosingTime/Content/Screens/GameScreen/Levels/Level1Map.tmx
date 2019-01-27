@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.2.1" orientation="orthogonal" renderorder="right-down" width="60" height="34" tilewidth="32" tileheight="32" infinite="0" nextlayerid="5" nextobjectid="20">
+ <objectgroup id="2" name="WorldCollision">
+  <object id="1" x="608" y="256" width="704" height="32"/>
+  <object id="2" x="1280" y="288" width="32" height="512"/>
+  <object id="3" x="992" y="768" width="288" height="32"/>
+  <object id="4" x="608" y="288" width="32" height="480"/>
+  <object id="10" x="608" y="768" width="320" height="32"/>
+ </objectgroup>
+ <objectgroup id="3" name="Entities">
+  <object id="5" type="Player" x="1024" y="352" width="32" height="32">
+   <properties>
+    <property name="EntityToCreate" value="Player"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="6" type="Patron" x="928" y="480" width="32" height="32">
+   <properties>
+    <property name="EntityToCreate" value="Patron"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="12" x="928" y="768">
+   <properties>
+    <property name="EntityToCreate" value="DoorExit"/>
+   </properties>
+   <polygon points="0,0 64,0 64,32 0,32"/>
+  </object>
+  <object id="15" type="Patron" x="1056" y="544" width="32" height="32">
+   <properties>
+    <property name="EntityToCreate" value="Patron"/>
+   </properties>
+   <ellipse/>
+  </object>
+  <object id="16" type="Patron" x="800" y="576" width="32" height="32">
+   <properties>
+    <property name="EntityToCreate" value="Patron"/>
+   </properties>
+   <ellipse/>
+  </object>
+ </objectgroup>
+ <objectgroup id="4" name="BarArea">
+  <object id="18" x="640" y="288" width="640" height="480"/>
+  <object id="19" x="928" y="768" width="64" height="32"/>
+ </objectgroup>
+</map>
