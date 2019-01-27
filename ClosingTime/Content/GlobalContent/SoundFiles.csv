@@ -1,0 +1,3 @@
+"Identifier (string, required)",FilePath (string),SoundType (ClosingTime.Sound.SoundType),Volume (float)
+rockitout,Content/sound/music/Stylish Rock Music.ogg,Music,1
+getoutofhere,Content/sound/sfx/GetOutOfHere.ogg,SFX,1

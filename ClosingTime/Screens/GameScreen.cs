@@ -19,6 +19,8 @@ using FlatRedBall.Math.Collision;
 using ClosingTime.Entities;
 using FlatRedBall.Debugging;
 using ClosingTime.Factories;
+using ClosingTime.Sound;
+using System.Timers;
 
 namespace ClosingTime.Screens
 {
@@ -33,6 +35,15 @@ namespace ClosingTime.Screens
 
 		void CustomInitialize()
 		{
+			SoundManager.Instance.PlaySFX("getoutofhere");
+
+			Timer timer = new Timer(2000);
+			timer.Elapsed += (a, b) => {
+				SoundManager.Instance.PlayMusic("rockitout");
+				timer.Stop(); 
+			};
+			timer.Start();
+
 			SetGumStates();
 			LoadTMX();
 			PositionCamera();
@@ -74,7 +85,7 @@ namespace ClosingTime.Screens
 
 		void CustomDestroy()
 		{
-
+			SoundManager.Instance.StopAllSounds(); 
 
 		}
 

@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
     <Compile Include="DataTypes\Levels.Generated.cs" />
+    <Compile Include="DataTypes\SoundFiles.Generated.cs" />
     <Compile Include="DataTypes\TileMapInfo.Generated.cs" />
     <Compile Include="Entities\Character.cs" />
     <Compile Include="Entities\Character.Generated.cs">
@@ -151,6 +152,9 @@
       <DependentUpon>MenuScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Setup\CameraSetup.cs" />
+    <Compile Include="Sound\IManagesSound.cs" />
+    <Compile Include="Sound\IrrKlangSoundManager.cs" />
+    <Compile Include="Sound\SoundManager.cs" />
     <Compile Include="TileCollisions\CollidableListVsTileShapeCollectionRelationship.cs" />
     <Compile Include="TileCollisions\CollidableVsTileShapeCollectionRelationship.cs" />
     <Compile Include="TileCollisions\CollisionManagerTileShapeCollectionExtensions.cs" />
@@ -181,6 +185,9 @@
     <Compile Include="Input\IUserInteractionState.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="irrKlang.NET4">
+      <HintPath>Libraries\irrKlang.NET4.dll</HintPath>
+    </Reference>
     <Reference Include="MonoGame.Framework, Version=3.5.1.1679, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Libraries\DesktopGl\Debug\MonoGame.Framework.dll</HintPath>
@@ -200,9 +207,21 @@
     <Content Include="Content\shader.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="content\entities\doorexit\font18bauhaus_93.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font18Bauhaus_93</Name>
+    </None>
+    <None Include="content\entities\doorexit\font18bauhaus_93_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font18Bauhaus_93_0</Name>
+    </None>
     <None Include="content\globalcontent\levels.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>Levels</Name>
+    </None>
+    <None Include="content\globalcontent\soundfiles.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>SoundFiles</Name>
     </None>
     <None Include="content\gumproject\components\defaultforms\button.gucx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -415,6 +434,12 @@
     <None Include="content\screens\gamescreen\levels\level1map.tmx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>Level1Map</Name>
+    </None>
+    <None Include="Content\sound\music\Stylish Rock Music.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Content\sound\sfx\GetOutOfHere.ogg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Libraries\DesktopGl\Debug\FlatRedBall.Forms.dll" />
     <None Include="Libraries\DesktopGl\Debug\GumCoreXnaPc.dll" />

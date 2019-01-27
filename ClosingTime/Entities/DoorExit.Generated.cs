@@ -21,7 +21,9 @@ namespace ClosingTime.Entities
         static object mLockObject = new object();
         static System.Collections.Generic.List<string> mRegisteredUnloads = new System.Collections.Generic.List<string>();
         static System.Collections.Generic.List<string> LoadedContentManagers = new System.Collections.Generic.List<string>();
+        protected static FlatRedBall.Graphics.BitmapFont Font18Bauhaus_93;
         
+        private FlatRedBall.Graphics.Text TextInstance;
         public int Index { get; set; }
         public bool Used { get; set; }
         private FlatRedBall.Math.Geometry.ShapeCollection mGeneratedCollision;
@@ -50,6 +52,8 @@ namespace ClosingTime.Entities
         protected virtual void InitializeEntity (bool addToManagers) 
         {
             LoadStaticContent(ContentManagerName);
+            TextInstance = new FlatRedBall.Graphics.Text();
+            TextInstance.Name = "TextInstance";
             
             PostInitialize();
             if (addToManagers)
@@ -61,11 +65,21 @@ namespace ClosingTime.Entities
         {
             LayerProvidedByContainer = layerToAddTo;
             FlatRedBall.SpriteManager.AddPositionedObject(this);
+            FlatRedBall.Graphics.TextManager.AddToLayer(TextInstance, LayerProvidedByContainer);
+            if (TextInstance.Font != null)
+            {
+                TextInstance.SetPixelPerfectScale(LayerProvidedByContainer);
+            }
         }
         public virtual void AddToManagers (FlatRedBall.Graphics.Layer layerToAddTo) 
         {
             LayerProvidedByContainer = layerToAddTo;
             FlatRedBall.SpriteManager.AddPositionedObject(this);
+            FlatRedBall.Graphics.TextManager.AddToLayer(TextInstance, LayerProvidedByContainer);
+            if (TextInstance.Font != null)
+            {
+                TextInstance.SetPixelPerfectScale(LayerProvidedByContainer);
+            }
             AddToManagersBottomUp(layerToAddTo);
             CustomInitialize();
         }
@@ -82,6 +96,10 @@ namespace ClosingTime.Entities
             }
             FlatRedBall.SpriteManager.RemovePositionedObject(this);
             
+            if (TextInstance != null)
+            {
+                FlatRedBall.Graphics.TextManager.RemoveTextOneWay(TextInstance);
+            }
             mGeneratedCollision.RemoveFromManagers(clearThis: false);
             CustomDestroy();
         }
@@ -89,6 +107,24 @@ namespace ClosingTime.Entities
         {
             bool oldShapeManagerSuppressAdd = FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue;
             FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = true;
+            if (TextInstance.Parent == null)
+            {
+                TextInstance.CopyAbsoluteToRelative();
+                TextInstance.AttachTo(this, false);
+            }
+            TextInstance.NewLineDistance = 15f;
+            TextInstance.Scale = 10f;
+            TextInstance.Spacing = 10f;
+            TextInstance.DisplayText = "EXIT";
+            TextInstance.Font = Font18Bauhaus_93;
+            TextInstance.HorizontalAlignment = FlatRedBall.Graphics.HorizontalAlignment.Center;
+            #if FRB_MDX
+            TextInstance.ColorOperation = Microsoft.DirectX.Direct3D.TextureOperation.ColorTextureAlpha;
+            #else
+            TextInstance.ColorOperation = FlatRedBall.Graphics.ColorOperation.ColorTextureAlpha;
+            #endif
+            TextInstance.Green = 0f;
+            TextInstance.Blue = 0f;
             mGeneratedCollision = new FlatRedBall.Math.Geometry.ShapeCollection();
             FlatRedBall.Math.Geometry.ShapeManager.SuppressAddingOnVisibilityTrue = oldShapeManagerSuppressAdd;
         }
@@ -99,6 +135,10 @@ namespace ClosingTime.Entities
         public virtual void RemoveFromManagers () 
         {
             FlatRedBall.SpriteManager.ConvertToManuallyUpdated(this);
+            if (TextInstance != null)
+            {
+                FlatRedBall.Graphics.TextManager.RemoveTextOneWay(TextInstance);
+            }
             mGeneratedCollision.RemoveFromManagers(clearThis: false);
         }
         public virtual void AssignCustomVariables (bool callOnContainedElements) 
@@ -106,11 +146,25 @@ namespace ClosingTime.Entities
             if (callOnContainedElements)
             {
             }
+            TextInstance.NewLineDistance = 15f;
+            TextInstance.Scale = 10f;
+            TextInstance.Spacing = 10f;
+            TextInstance.DisplayText = "EXIT";
+            TextInstance.Font = Font18Bauhaus_93;
+            TextInstance.HorizontalAlignment = FlatRedBall.Graphics.HorizontalAlignment.Center;
+            #if FRB_MDX
+            TextInstance.ColorOperation = Microsoft.DirectX.Direct3D.TextureOperation.ColorTextureAlpha;
+            #else
+            TextInstance.ColorOperation = FlatRedBall.Graphics.ColorOperation.ColorTextureAlpha;
+            #endif
+            TextInstance.Green = 0f;
+            TextInstance.Blue = 0f;
         }
         public virtual void ConvertToManuallyUpdated () 
         {
             this.ForceUpdateDependenciesDeep();
             FlatRedBall.SpriteManager.ConvertToManuallyUpdated(this);
+            FlatRedBall.Graphics.TextManager.ConvertToManuallyUpdated(TextInstance);
         }
         public static void LoadStaticContent (string contentManagerName) 
         {
@@ -147,6 +201,11 @@ namespace ClosingTime.Entities
                         mRegisteredUnloads.Add(ContentManagerName);
                     }
                 }
+                if (!FlatRedBall.FlatRedBallServices.IsLoaded<FlatRedBall.Graphics.BitmapFont>(@"content/entities/doorexit/font18bauhaus_93.fnt", ContentManagerName))
+                {
+                    registerUnload = true;
+                }
+                Font18Bauhaus_93 = FlatRedBall.FlatRedBallServices.Load<FlatRedBall.Graphics.BitmapFont>(@"content/entities/doorexit/font18bauhaus_93.fnt", ContentManagerName);
             }
             if (registerUnload && ContentManagerName != FlatRedBall.FlatRedBallServices.GlobalContentManager)
             {
@@ -170,19 +229,38 @@ namespace ClosingTime.Entities
             }
             if (LoadedContentManagers.Count == 0)
             {
+                if (Font18Bauhaus_93 != null)
+                {
+                    Font18Bauhaus_93= null;
+                }
             }
         }
         [System.Obsolete("Use GetFile instead")]
         public static object GetStaticMember (string memberName) 
         {
+            switch(memberName)
+            {
+                case  "Font18Bauhaus_93":
+                    return Font18Bauhaus_93;
+            }
             return null;
         }
         public static object GetFile (string memberName) 
         {
+            switch(memberName)
+            {
+                case  "Font18Bauhaus_93":
+                    return Font18Bauhaus_93;
+            }
             return null;
         }
         object GetMember (string memberName) 
         {
+            switch(memberName)
+            {
+                case  "Font18Bauhaus_93":
+                    return Font18Bauhaus_93;
+            }
             return null;
         }
         protected bool mIsPaused;
@@ -194,10 +272,16 @@ namespace ClosingTime.Entities
         public virtual void SetToIgnorePausing () 
         {
             FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(this);
+            FlatRedBall.Instructions.InstructionManager.IgnorePausingFor(TextInstance);
         }
         public virtual void MoveToLayer (FlatRedBall.Graphics.Layer layerToMoveTo) 
         {
             var layerToRemoveFrom = LayerProvidedByContainer;
+            if (layerToRemoveFrom != null)
+            {
+                layerToRemoveFrom.Remove(TextInstance);
+            }
+            FlatRedBall.Graphics.TextManager.AddToLayer(TextInstance, layerToMoveTo);
             LayerProvidedByContainer = layerToMoveTo;
         }
     }

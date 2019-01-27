@@ -12,6 +12,7 @@ using FlatRedBall.Graphics.Particle;
 using FlatRedBall.Math.Geometry;
 using FlatRedBall.Localization;
 using ClosingTime.Input;
+using ClosingTime.Sound;
 
 namespace ClosingTime.Screens
 {

@@ -8,6 +8,7 @@ using FlatRedBall.AI.Pathfinding;
 using FlatRedBall.Graphics.Animation;
 using FlatRedBall.Graphics.Particle;
 using FlatRedBall.Math.Geometry;
+using Microsoft.Xna.Framework;
 
 namespace ClosingTime.Entities
 {
@@ -20,7 +21,6 @@ namespace ClosingTime.Entities
         /// </summary>
 		private void CustomInitialize()
 		{
-
 
 		}
 
@@ -46,6 +46,21 @@ namespace ClosingTime.Entities
 		{
 			Collision.Polygons[0].Points = polygon.Points;
 			this.Position = polygon.Position;
+
+			SetExitSign(); 
+		}
+
+		public void SetExitSign()
+		{
+			float num = 0;
+			Vector3 position = Vector3.Zero;
+			foreach (var point in Collision.Polygons[0].Points)
+			{
+				num++;
+				position += point.ToVector3();
+			}
+			position /= num;
+			TextInstance.RelativePosition = position;
 		}
 	}
 }
