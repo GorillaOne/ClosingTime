@@ -33,6 +33,7 @@
                 GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("LevelSelect", typeof(ClosingTime.GumRuntimes.LevelSelectRuntime));
                 GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("Timer", typeof(ClosingTime.GumRuntimes.TimerRuntime));
                 GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("VictoryOverlay", typeof(ClosingTime.GumRuntimes.VictoryOverlayRuntime));
+                GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("WordBubble", typeof(ClosingTime.GumRuntimes.WordBubbleRuntime));
                 GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("GameScreenGum", typeof(ClosingTime.GumRuntimes.GameScreenGumRuntime));
                 GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("MenuScreenGum", typeof(ClosingTime.GumRuntimes.MenuScreenGumRuntime));
                 

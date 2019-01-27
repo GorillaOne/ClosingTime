@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="AI\AI.cs" />
     <Compile Include="DataTypes\Levels.Generated.cs" />
+    <Compile Include="DataTypes\PatronUtterances.Generated.cs" />
     <Compile Include="DataTypes\SoundFiles.Generated.cs" />
     <Compile Include="DataTypes\TileMapInfo.Generated.cs" />
     <Compile Include="Entities\Character.cs" />
@@ -132,6 +133,10 @@
     <Compile Include="GumRuntimes\VictoryOverlayRuntime.Generated.cs">
       <DependentUpon>VictoryOverlayRuntime.cs</DependentUpon>
     </Compile>
+    <Compile Include="GumRuntimes\WordBubbleRuntime.cs" />
+    <Compile Include="GumRuntimes\WordBubbleRuntime.Generated.cs">
+      <DependentUpon>WordBubbleRuntime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Input\GameScreen_Default.cs" />
     <Compile Include="Input\GameScreen_Victory.cs" />
     <Compile Include="Input\IManagesUserInteraction.cs" />
@@ -218,6 +223,10 @@
     <None Include="content\globalcontent\levels.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>Levels</Name>
+    </None>
+    <None Include="content\globalcontent\patronutterances.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>PatronUtterances</Name>
     </None>
     <None Include="content\globalcontent\soundfiles.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -307,6 +316,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>victoryoverlay</Name>
     </None>
+    <None Include="content\gumproject\components\wordbubble.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>wordbubble</Name>
+    </None>
     <None Include="content\gumproject\fontcache\font18arial.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>font18arial</Name>
@@ -314,6 +327,14 @@
     <None Include="content\gumproject\fontcache\font18arial_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>Font18Arial_0</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font28calibri.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>font28calibri</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font28calibri_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font28Calibri_0</Name>
     </None>
     <None Include="content\gumproject\fontcache\font32arial.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -9,12 +9,19 @@ using FlatRedBall.Graphics.Animation;
 using FlatRedBall.Graphics.Particle;
 using FlatRedBall.Math.Geometry;
 using Microsoft.Xna.Framework;
+using System.Timers;
+using FlatRedBall.Debugging;
+using ClosingTime.GumRuntimes;
 
 namespace ClosingTime.Entities
 {
 	public partial class Patron
 	{
 		private Vector3 wanderDirection;
+		Timer timer;
+		WordBubbleRuntime wordBubble = new WordBubbleRuntime();  
+		object speakLock = new object(); 
+		bool speak; 
 
 		/// <summary>
 		/// Initialization logic which is execute only one time for this Entity (unless the Entity is pooled).
@@ -23,20 +30,30 @@ namespace ClosingTime.Entities
 		/// </summary>
 		private void CustomInitialize()
 		{
-
-
+			StartTimer();
 		}
 
 		private void CustomActivity()
 		{
-			
+			lock(speakLock)
+			{
+				if (speak) Speak(); 
+			}
 
+			if (wordBubble != null)
+			{
+				var xOrigin = Camera.Main.X - (Camera.Main.OrthogonalWidth / 2);
+				var yOrigin = -Camera.Main.Y - (Camera.Main.OrthogonalHeight / 2);
+				wordBubble.X = this.X - xOrigin;
+				wordBubble.Y = -this.Y - yOrigin;
+			}
 		}
 
 		private void CustomDestroy()
 		{
-
-
+			wordBubble?.Destroy(); 
+			timer?.Stop();
+			timer = null;
 		}
 
         private static void CustomLoadStaticContent(string contentManagerName)
@@ -146,12 +163,63 @@ namespace ClosingTime.Entities
 			return estPosition;
 		}
 
-
 		private void FixSteeringVector(ref Vector3 steering)
 		{
 			if (float.IsNaN(steering.X)) steering.X = 0;
 			if (float.IsNaN(steering.Y)) steering.Y = 0;
 			if (float.IsNaN(steering.Z)) steering.Z = 0;
+		}
+
+		private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+		{
+			timer.Elapsed -= Timer_Elapsed;
+			timer.Stop();
+
+			var chance = 10; //out of 1000. So .01%
+			var rando = FlatRedBallServices.Random.Next(100);
+			if (rando < chance)
+			{
+				lock(speakLock)
+				{
+					speak = true; 
+				}
+			}
+			else
+			{
+				StartTimer();
+			}
+		}
+
+		private void StartTimer()
+		{
+			timer = new Timer(1000);
+			timer.Elapsed += Timer_Elapsed;
+			timer.Start();
+		}
+
+		private void CreateText()
+		{
+			wordBubble?.Destroy(); 
+
+			wordBubble = new WordBubbleRuntime(true);
+			wordBubble.Visible = true;
+			wordBubble.FadeAnimation.Play();
+			wordBubble.FadeAnimation.EndReached += wordBubble.Destroy; 
+
+			int index = FlatRedBallServices.Random.Next(GlobalContent.PatronUtterances.Count - 1);
+			wordBubble.DisplayText = GlobalContent.PatronUtterances[index].Name;
+			wordBubble.AddToManagers();
+		}
+
+		public void Speak()
+		{
+			lock (speakLock)
+			{
+				speak = false; 
+			}
+
+			CreateText(); 
+			StartTimer(); 
 		}
 	}
 }

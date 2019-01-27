@@ -24,6 +24,7 @@ namespace ClosingTime
         public static System.Collections.Generic.Dictionary<string, ClosingTime.DataTypes.Levels> Levels { get; set; }
         public static FlatRedBall.Gum.GumIdb GumProject { get; set; }
         public static System.Collections.Generic.List<ClosingTime.DataTypes.SoundFiles> SoundFiles { get; set; }
+        public static System.Collections.Generic.List<ClosingTime.DataTypes.PatronUtterances> PatronUtterances { get; set; }
         [System.Obsolete("Use GetFile instead")]
         public static object GetStaticMember (string memberName) 
         {
@@ -35,6 +36,8 @@ namespace ClosingTime
                     return GumProject;
                 case  "SoundFiles":
                     return SoundFiles;
+                case  "PatronUtterances":
+                    return PatronUtterances;
             }
             return null;
         }
@@ -48,6 +51,8 @@ namespace ClosingTime
                     return GumProject;
                 case  "SoundFiles":
                     return SoundFiles;
+                case  "PatronUtterances":
+                    return PatronUtterances;
             }
             return null;
         }
@@ -82,6 +87,18 @@ namespace ClosingTime
                     SoundFiles = temporaryCsvObject;
                 }
             }
+            if (PatronUtterances == null)
+            {
+                {
+                    // We put the { and } to limit the scope of oldDelimiter
+                    char oldDelimiter = FlatRedBall.IO.Csv.CsvFileManager.Delimiter;
+                    FlatRedBall.IO.Csv.CsvFileManager.Delimiter = ',';
+                    System.Collections.Generic.List<ClosingTime.DataTypes.PatronUtterances> temporaryCsvObject = new System.Collections.Generic.List<ClosingTime.DataTypes.PatronUtterances>();
+                    FlatRedBall.IO.Csv.CsvFileManager.CsvDeserializeList(typeof(ClosingTime.DataTypes.PatronUtterances), "content/globalcontent/patronutterances.csv", temporaryCsvObject);
+                    FlatRedBall.IO.Csv.CsvFileManager.Delimiter = oldDelimiter;
+                    PatronUtterances = temporaryCsvObject;
+                }
+            }
             			IsInitialized = true;
             // Added by GumPlugin becasue of the Show Mouse checkbox on the .gumx:
             FlatRedBall.FlatRedBallServices.Game.IsMouseVisible = true;
@@ -103,6 +120,17 @@ namespace ClosingTime
                     FlatRedBall.IO.Csv.CsvFileManager.Delimiter = ',';
                     SoundFiles.Clear();
                     FlatRedBall.IO.Csv.CsvFileManager.CsvDeserializeList(typeof(ClosingTime.DataTypes.SoundFiles), "content/globalcontent/soundfiles.csv", SoundFiles);
+                    FlatRedBall.IO.Csv.CsvFileManager.Delimiter = oldDelimiter;
+                }
+            }
+            if (whatToReload == PatronUtterances)
+            {
+                {
+                    // We put the { and } to limit the scope of oldDelimiter
+                    char oldDelimiter = FlatRedBall.IO.Csv.CsvFileManager.Delimiter;
+                    FlatRedBall.IO.Csv.CsvFileManager.Delimiter = ',';
+                    PatronUtterances.Clear();
+                    FlatRedBall.IO.Csv.CsvFileManager.CsvDeserializeList(typeof(ClosingTime.DataTypes.PatronUtterances), "content/globalcontent/patronutterances.csv", PatronUtterances);
                     FlatRedBall.IO.Csv.CsvFileManager.Delimiter = oldDelimiter;
                 }
             }

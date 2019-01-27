@@ -35,26 +35,14 @@ namespace ClosingTime.Screens
 
 		void CustomInitialize()
 		{
-			SoundManager.Instance.PlaySFX("getoutofhere");
-
-			Timer timer = new Timer(2000);
-			timer.Elapsed += (a, b) => {
-				SoundManager.Instance.PlayMusic("rockitout");
-				timer.Stop(); 
-			};
-			timer.Start();
-
+			StartSound();
 			SetGumStates();
 			LoadTMX();
 			PositionCamera();
 			SetupCollisionRelationships();
-			LoadUserInteractionState(new GameScreen_Default(this)); 
+			LoadUserInteractionState(new GameScreen_Default(this));
 		}
 
-		private void SetGumStates()
-		{
-			GameScreenGumRuntime.CurrentVictoryDisplayState = GumRuntimes.GameScreenGumRuntime.VictoryDisplay.Off;
-		}
 
 		void CustomActivity(bool firstTimeCalled)
 		{
@@ -93,6 +81,23 @@ namespace ClosingTime.Screens
 		{
 
 
+		}
+
+		private void SetGumStates()
+		{
+			GameScreenGumRuntime.CurrentVictoryDisplayState = GumRuntimes.GameScreenGumRuntime.VictoryDisplay.Off;
+		}
+
+		private void StartSound()
+		{
+			SoundManager.Instance.PlaySFX("getoutofhere");
+
+			Timer timer = new Timer(2000);
+			timer.Elapsed += (a, b) => {
+				SoundManager.Instance.PlayMusic("rockitout");
+				timer.Stop();
+			};
+			timer.Start();
 		}
 
 		private void LoadTMX()
@@ -183,7 +188,7 @@ namespace ClosingTime.Screens
 			{
 				victory = true;
 				GameScreenGumRuntime.CurrentVictoryDisplayState = GumRuntimes.GameScreenGumRuntime.VictoryDisplay.On;
-				GameScreenGumRuntime.VictoryOverlayInstance.TimeDisplayText = GameScreenGumRuntime.TimerInstance.TimeDisplayText;
+				GameScreenGumRuntime.VictoryOverlayInstance.TimeDisplayText = $"{GameScreenGumRuntime.TimerInstance.TimeDisplayText} seconds";
 				LoadUserInteractionState(new GameScreen_Victory(this)); 
 			}
 		}
