@@ -17,6 +17,8 @@ using ClosingTime.Input;
 using Microsoft.Xna.Framework;
 using FlatRedBall.Math.Collision;
 using ClosingTime.Entities;
+using FlatRedBall.Debugging;
+using ClosingTime.Factories;
 
 namespace ClosingTime.Screens
 {
@@ -26,44 +28,49 @@ namespace ClosingTime.Screens
 		IUserInteractionState currentState;
 		private Dictionary<string, Polygon> cachedDoorExits = new Dictionary<string, Polygon>();
 		int patronsInBar;
-		bool firstRun = false; 
+		bool firstRun = false;
+		bool victory = false; 
 
 		void CustomInitialize()
 		{
+			SetGumStates();
 			LoadTMX();
 			PositionCamera();
 			SetupCollisionRelationships();
 			LoadUserInteractionState(new GameScreen_Default(this)); 
 		}
 
+		private void SetGumStates()
+		{
+			GameScreenGumRuntime.CurrentVictoryDisplayState = GumRuntimes.GameScreenGumRuntime.VictoryDisplay.Off;
+		}
+
 		void CustomActivity(bool firstTimeCalled)
 		{
-			currentState?.Activity(); 
-			foreach(var patron in PatronList)
+			if (!victory)
 			{
-				patron.Move(PlayerList); 
-			}
-			foreach(var aar in WorldCollision.AxisAlignedRectangles)
-			{
-				aar.ForceUpdateDependenciesDeep(); 
-			}
+				var time = Math.Round(this.PauseAdjustedCurrentTime, 2);
+				GameScreenGumRuntime.TimerInstance.TimeDisplayText = time.ToString("F");
+				currentState?.Activity();
+				foreach (var patron in PatronList)
+				{
+					patron.Move(PlayerList);
+				}
+				foreach (var aar in WorldCollision.AxisAlignedRectangles)
+				{
+					aar.ForceUpdateDependenciesDeep();
+				}
 
-			if (!firstRun) firstRun = true; 
-			else
-			{
-				CheckForVictory();
-				patronsInBar = 0;
+				if (!firstRun) firstRun = true;
+				else
+				{
+					CheckForVictory();
+					patronsInBar = 0;
+				}
 			}
 
 		}
 
-		private void CheckForVictory()
-		{
-			if (patronsInBar == 0)
-			{
-				FlatRedBallServices.Game.Exit(); 
-			}
-		}
 
 		void CustomDestroy()
 		{
@@ -129,7 +136,6 @@ namespace ClosingTime.Screens
 			}
 		}
 
-
 		private void SetDoorSizes()
 		{ 
 			foreach (var door in DoorExitList)
@@ -153,13 +159,24 @@ namespace ClosingTime.Screens
 			patronBar.CollisionOccurred += (a,b) => { patronsInBar++;  }; 
 		}
 
-
 		public void LoadUserInteractionState(IUserInteractionState state)
 		{
 			currentState?.Teardown();
 			currentState = state;
 			currentState.Setup();
 		}
+
+		private void CheckForVictory()
+		{
+			if (patronsInBar == 0)
+			{
+				victory = true;
+				GameScreenGumRuntime.CurrentVictoryDisplayState = GumRuntimes.GameScreenGumRuntime.VictoryDisplay.On;
+				GameScreenGumRuntime.VictoryOverlayInstance.TimeDisplayText = GameScreenGumRuntime.TimerInstance.TimeDisplayText;
+				LoadUserInteractionState(new GameScreen_Victory(this)); 
+			}
+		}
+
 
 		public void MovePlayersToward(Vector3 position)
 		{

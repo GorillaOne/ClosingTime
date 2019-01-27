@@ -105,19 +105,34 @@
     <Compile Include="GumRuntimes\DefaultForms\TreeViewToggleButtonRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\DefaultForms\UserControlRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\GameScreenGumRuntime.cs" />
-    <Compile Include="GumRuntimes\GameScreenGumRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\GameScreenGumRuntime.Generated.cs">
+      <DependentUpon>GameScreenGumRuntime.cs</DependentUpon>
+    </Compile>
     <Compile Include="GumRuntimes\GumIdb.Generated.cs" />
     <Compile Include="GumRuntimes\LevelContainerRuntime.cs" />
     <Compile Include="GumRuntimes\LevelSelectRuntime.cs" />
-    <Compile Include="GumRuntimes\LevelSelectRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\LevelSelectRuntime.Generated.cs">
+      <DependentUpon>LevelSelectRuntime.cs</DependentUpon>
+    </Compile>
     <Compile Include="GumRuntimes\MenuScreenGumRuntime.cs" />
-    <Compile Include="GumRuntimes\MenuScreenGumRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\MenuScreenGumRuntime.Generated.cs">
+      <DependentUpon>MenuScreenGumRuntime.cs</DependentUpon>
+    </Compile>
     <Compile Include="GumRuntimes\NineSliceRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\PolygonRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\RectangleRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\SpriteRuntime.Generated.cs" />
     <Compile Include="GumRuntimes\TextRuntime.Generated.cs" />
+    <Compile Include="GumRuntimes\TimerRuntime.cs" />
+    <Compile Include="GumRuntimes\TimerRuntime.Generated.cs">
+      <DependentUpon>TimerRuntime.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GumRuntimes\VictoryOverlayRuntime.cs" />
+    <Compile Include="GumRuntimes\VictoryOverlayRuntime.Generated.cs">
+      <DependentUpon>VictoryOverlayRuntime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Input\GameScreen_Default.cs" />
+    <Compile Include="Input\GameScreen_Victory.cs" />
     <Compile Include="Input\IManagesUserInteraction.cs" />
     <Compile Include="Performance\IEntityFactory.Generated.cs" />
     <Compile Include="Performance\PoolList.Generated.cs" />
@@ -265,6 +280,14 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>levelselect</Name>
     </None>
+    <None Include="content\gumproject\components\timer.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>timer</Name>
+    </None>
+    <None Include="content\gumproject\components\victoryoverlay.gucx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>victoryoverlay</Name>
+    </None>
     <None Include="content\gumproject\fontcache\font18arial.fnt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>font18arial</Name>
@@ -272,6 +295,34 @@
     <None Include="content\gumproject\fontcache\font18arial_0.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Name>Font18Arial_0</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font32arial.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>font32arial</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font32arial_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font32Arial_0</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font46calibri.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>font46calibri</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font46calibri_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font46Calibri_0</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font64calibri.fnt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>font64calibri</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font64calibri_0.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font64Calibri_0</Name>
+    </None>
+    <None Include="content\gumproject\fontcache\font64calibri_1.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Name>Font64Calibri_1</Name>
     </None>
     <None Include="content\gumproject\gumproject.gumx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

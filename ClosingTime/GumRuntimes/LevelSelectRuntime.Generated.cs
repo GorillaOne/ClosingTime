@@ -25,9 +25,9 @@
                     switch(mCurrentVariableState)
                     {
                         case  VariableState.Default:
-                            Height = 100f;
-                            HeightUnits = Gum.DataTypes.DimensionUnitType.Percentage;
-                            Width = 0f;
+                            Height = 20f;
+                            HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
+                            Width = 20f;
                             WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
                             XOrigin = RenderingLibrary.Graphics.HorizontalAlignment.Center;
                             XUnits = Gum.Converters.GeneralUnitType.PixelsFromMiddle;
@@ -120,10 +120,10 @@
                             this.ColoredRectangleInstance.WidthUnits = Gum.DataTypes.DimensionUnitType.Percentage;
                         }
                         setHeightFirstValue = true;
-                        HeightFirstValue = 100f;
+                        HeightFirstValue = 20f;
                         if (interpolationValue < 1)
                         {
-                            this.HeightUnits = Gum.DataTypes.DimensionUnitType.Percentage;
+                            this.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
                         }
                         setLevelsContainerHeightFirstValue = true;
                         LevelsContainerHeightFirstValue = 0f;
@@ -154,7 +154,7 @@
                             this.LevelsContainer.YUnits = Gum.Converters.GeneralUnitType.PixelsFromMiddle;
                         }
                         setWidthFirstValue = true;
-                        WidthFirstValue = 0f;
+                        WidthFirstValue = 20f;
                         if (interpolationValue < 1)
                         {
                             this.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
@@ -199,10 +199,10 @@
                             this.ColoredRectangleInstance.WidthUnits = Gum.DataTypes.DimensionUnitType.Percentage;
                         }
                         setHeightSecondValue = true;
-                        HeightSecondValue = 100f;
+                        HeightSecondValue = 20f;
                         if (interpolationValue >= 1)
                         {
-                            this.HeightUnits = Gum.DataTypes.DimensionUnitType.Percentage;
+                            this.HeightUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
                         }
                         setLevelsContainerHeightSecondValue = true;
                         LevelsContainerHeightSecondValue = 0f;
@@ -233,7 +233,7 @@
                             this.LevelsContainer.YUnits = Gum.Converters.GeneralUnitType.PixelsFromMiddle;
                         }
                         setWidthSecondValue = true;
-                        WidthSecondValue = 0f;
+                        WidthSecondValue = 20f;
                         if (interpolationValue >= 1)
                         {
                             this.WidthUnits = Gum.DataTypes.DimensionUnitType.RelativeToChildren;
@@ -570,7 +570,7 @@
                             SetsValue = true,
                             Name = "Height",
                             Type = "float",
-                            Value = Height + 100f
+                            Value = Height + 20f
                         }
                         );
                         newState.Variables.Add(new Gum.DataTypes.Variables.VariableSave()
@@ -586,7 +586,7 @@
                             SetsValue = true,
                             Name = "Width",
                             Type = "float",
-                            Value = Width + 0f
+                            Value = Width + 20f
                         }
                         );
                         newState.Variables.Add(new Gum.DataTypes.Variables.VariableSave()

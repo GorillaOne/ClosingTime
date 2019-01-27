@@ -23,19 +23,16 @@ namespace ClosingTime.Screens
 		void CustomInitialize()
 		{
 			CreateLevelSelectButtons(); 
-
 		}
 
 		void CustomActivity(bool firstTimeCalled)
 		{
 			currentState?.Activity(); 
-
 		}
 
 		void CustomDestroy()
 		{
 			MenuScreenGumRuntime.LevelSelectInstance.ClearRuntimes();
-
 		}
 
         static void CustomLoadStaticContent(string contentManagerName)

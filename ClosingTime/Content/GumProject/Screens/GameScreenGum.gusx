@@ -3,5 +3,42 @@
   <Name>GameScreenGum</Name>
   <State>
     <Name>Default</Name>
+    <Variable>
+      <Type>VictoryDisplayState</Type>
+      <Name>VictoryDisplayState</Name>
+      <Value xsi:type="xsd:string">Off</Value>
+      <SetsValue>true</SetsValue>
+    </Variable>
   </State>
+  <Category>
+    <Name>VictoryDisplay</Name>
+    <State>
+      <Name>On</Name>
+      <Variable>
+        <Type>bool</Type>
+        <Name>VictoryOverlayInstance.Visible</Name>
+        <Value xsi:type="xsd:boolean">true</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+    </State>
+    <State>
+      <Name>Off</Name>
+      <Variable>
+        <Type>bool</Type>
+        <Name>VictoryOverlayInstance.Visible</Name>
+        <Value xsi:type="xsd:boolean">false</Value>
+        <SetsValue>true</SetsValue>
+      </Variable>
+    </State>
+  </Category>
+  <Instance>
+    <Name>TimerInstance</Name>
+    <BaseType>Timer</BaseType>
+    <DefinedByBase>false</DefinedByBase>
+  </Instance>
+  <Instance>
+    <Name>VictoryOverlayInstance</Name>
+    <BaseType>VictoryOverlay</BaseType>
+    <DefinedByBase>false</DefinedByBase>
+  </Instance>
 </ScreenSave>

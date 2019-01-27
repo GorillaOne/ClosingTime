@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using FlatRedBall.Math.Geometry;
 using FlatRedBall.Math;
+using FlatRedBall.Graphics;
 namespace ClosingTime.Screens
 {
     public partial class GameScreen : FlatRedBall.Screens.Screen
@@ -17,6 +18,7 @@ namespace ClosingTime.Screens
         static bool HasBeenLoadedWithGlobalContentManager = false;
         #endif
         protected static FlatRedBall.TileGraphics.LayeredTileMap Level1Map;
+        protected static FlatRedBall.Gum.GumIdb GameScreenGum;
         
         protected FlatRedBall.TileGraphics.LayeredTileMap MapInstance;
         private FlatRedBall.Math.Geometry.ShapeCollection WorldCollision;
@@ -47,8 +49,23 @@ namespace ClosingTime.Screens
         }
         private FlatRedBall.Math.PositionedObjectList<ClosingTime.Entities.DoorExit> DoorExitList;
         private FlatRedBall.Math.Geometry.ShapeCollection BarArea;
+        private ClosingTime.GumRuntimes.GameScreenGumRuntime mGameScreenGumRuntime;
+        public ClosingTime.GumRuntimes.GameScreenGumRuntime GameScreenGumRuntime
+        {
+            get
+            {
+                return mGameScreenGumRuntime;
+            }
+            private set
+            {
+                mGameScreenGumRuntime = value;
+            }
+        }
+        private FlatRedBall.Graphics.Layer GUILayer;
+        private FlatRedBall.Graphics.Layer GameLayer;
         public virtual string MapName { get; set; }
-        FlatRedBall.Gum.GumIdb gumIdb;
+        protected global::RenderingLibrary.Graphics.Layer GUILayerGum;
+        protected global::RenderingLibrary.Graphics.Layer GameLayerGum;
         public GameScreen () 
         	: base ("GameScreen")
         {
@@ -68,7 +85,11 @@ namespace ClosingTime.Screens
             DoorExitList.Name = "DoorExitList";
             BarArea = new FlatRedBall.Math.Geometry.ShapeCollection();
             BarArea.Name = "BarArea";
-            gumIdb = new FlatRedBall.Gum.GumIdb();
+            mGameScreenGumRuntime = GameScreenGum.GetGraphicalUiElementByName("this") as ClosingTime.GumRuntimes.GameScreenGumRuntime;
+            GUILayer = new FlatRedBall.Graphics.Layer();
+            GUILayer.Name = "GUILayer";
+            GameLayer = new FlatRedBall.Graphics.Layer();
+            GameLayer.Name = "GameLayer";
             
             
             PostInitialize();
@@ -81,15 +102,37 @@ namespace ClosingTime.Screens
         public override void AddToManagers () 
         {
             Level1Map.AddToManagers(mLayer);
-            FlatRedBall.SpriteManager.AddDrawableBatch(gumIdb);
+            GameScreenGum.InstanceInitialize(); FlatRedBall.FlatRedBallServices.GraphicsOptions.SizeOrOrientationChanged += GameScreenGum.HandleResolutionChanged;
+            FlatRedBall.SpriteManager.AddLayer(GUILayer);
+            GUILayer.UsePixelCoordinates();
+            if (FlatRedBall.SpriteManager.Camera.Orthogonal)
+            {
+                GUILayer.LayerCameraSettings.OrthogonalWidth = FlatRedBall.SpriteManager.Camera.OrthogonalWidth;
+                GUILayer.LayerCameraSettings.OrthogonalHeight = FlatRedBall.SpriteManager.Camera.OrthogonalHeight;
+            }
+            FlatRedBall.SpriteManager.AddLayer(GameLayer);
+            GameLayer.UsePixelCoordinates();
+            if (FlatRedBall.SpriteManager.Camera.Orthogonal)
+            {
+                GameLayer.LayerCameraSettings.OrthogonalWidth = FlatRedBall.SpriteManager.Camera.OrthogonalWidth;
+                GameLayer.LayerCameraSettings.OrthogonalHeight = FlatRedBall.SpriteManager.Camera.OrthogonalHeight;
+            }
+            GUILayerGum = RenderingLibrary.SystemManagers.Default.Renderer.AddLayer();
+            GUILayerGum.Name = "GUILayerGum";
+            GameScreenGum.AddGumLayerToFrbLayer(GUILayerGum, GUILayer);
+            GameLayerGum = RenderingLibrary.SystemManagers.Default.Renderer.AddLayer();
+            GameLayerGum.Name = "GameLayerGum";
+            GameScreenGum.AddGumLayerToFrbLayer(GameLayerGum, GameLayer);
             Factories.PatronFactory.Initialize(ContentManagerName);
             Factories.PlayerFactory.Initialize(ContentManagerName);
             Factories.DoorExitFactory.Initialize(ContentManagerName);
             Factories.PatronFactory.AddList(mPatronList);
             Factories.PlayerFactory.AddList(mPlayerList);
             Factories.DoorExitFactory.AddList(DoorExitList);
-            WorldCollision.AddToManagers();
+            WorldCollision.AddToManagers(GameLayer);
             BarArea.AddToManagers();
+            mGameScreenGumRuntime.AddToManagers(RenderingLibrary.SystemManagers.Default, System.Linq.Enumerable.FirstOrDefault(FlatRedBall.Gum.GumIdb.AllGumLayersOnFrbLayer(GUILayer)));
+
             base.AddToManagers();
             AddToManagersBottomUp();
             CustomInitialize();
@@ -138,13 +181,14 @@ namespace ClosingTime.Screens
         }
         public override void Destroy () 
         {
-            FlatRedBall.SpriteManager.RemoveDrawableBatch(gumIdb);
             base.Destroy();
             Factories.PatronFactory.Destroy();
             Factories.PlayerFactory.Destroy();
             Factories.DoorExitFactory.Destroy();
             Level1Map.Destroy();
             Level1Map = null;
+            FlatRedBall.SpriteManager.RemoveDrawableBatch(GameScreenGum); FlatRedBall.FlatRedBallServices.GraphicsOptions.SizeOrOrientationChanged -= GameScreenGum.HandleResolutionChanged;
+            GameScreenGum = null;
             
             PatronList.MakeOneWay();
             PlayerList.MakeOneWay();
@@ -169,6 +213,18 @@ namespace ClosingTime.Screens
             {
                 BarArea.RemoveFromManagers(ContentManagerName != "Global");
             }
+            if (GameScreenGumRuntime != null)
+            {
+                GameScreenGumRuntime.RemoveFromManagers();
+            }
+            if (GUILayer != null)
+            {
+                FlatRedBall.SpriteManager.RemoveLayer(GUILayer);
+            }
+            if (GameLayer != null)
+            {
+                FlatRedBall.SpriteManager.RemoveLayer(GameLayer);
+            }
             PatronList.MakeTwoWay();
             PlayerList.MakeTwoWay();
             DoorExitList.MakeTwoWay();
@@ -185,6 +241,8 @@ namespace ClosingTime.Screens
         {
             CameraSetup.ResetCamera(SpriteManager.Camera);
             AssignCustomVariables(false);
+            mGameScreenGumRuntime.MoveToFrbLayer(GUILayer, GUILayerGum);
+            FlatRedBall.Gui.GuiManager.SortZAndLayerBased();
         }
         public virtual void RemoveFromManagers () 
         {
@@ -207,6 +265,18 @@ namespace ClosingTime.Screens
             if (BarArea != null)
             {
                 BarArea.RemoveFromManagers(false);
+            }
+            if (GameScreenGumRuntime != null)
+            {
+                GameScreenGumRuntime.RemoveFromManagers();
+            }
+            if (GUILayer != null)
+            {
+                FlatRedBall.SpriteManager.RemoveLayer(GUILayer);
+            }
+            if (GameLayer != null)
+            {
+                FlatRedBall.SpriteManager.RemoveLayer(GameLayer);
             }
         }
         public virtual void AssignCustomVariables (bool callOnContainedElements) 
@@ -253,6 +323,7 @@ namespace ClosingTime.Screens
             }
             #endif
             Level1Map = FlatRedBall.TileGraphics.LayeredTileMap.FromTiledMapSave("content/screens/gamescreen/levels/level1map.tmx", contentManagerName);
+            Gum.Wireframe.GraphicalUiElement.IsAllLayoutSuspended = true;  GameScreenGum = new FlatRedBall.Gum.GumIdb();  GameScreenGum.LoadFromFile("content/gumproject/screens/gamescreengum.gusx");  GameScreenGum.AssignReferences();Gum.Wireframe.GraphicalUiElement.IsAllLayoutSuspended = false; GameScreenGum.Element.UpdateLayout(); GameScreenGum.Element.UpdateLayout();
             CustomLoadStaticContent(contentManagerName);
         }
         public override void PauseThisScreen () 
@@ -272,6 +343,8 @@ namespace ClosingTime.Screens
             {
                 case  "Level1Map":
                     return Level1Map;
+                case  "GameScreenGum":
+                    return GameScreenGum;
             }
             return null;
         }
@@ -281,6 +354,8 @@ namespace ClosingTime.Screens
             {
                 case  "Level1Map":
                     return Level1Map;
+                case  "GameScreenGum":
+                    return GameScreenGum;
             }
             return null;
         }
@@ -290,6 +365,8 @@ namespace ClosingTime.Screens
             {
                 case  "Level1Map":
                     return Level1Map;
+                case  "GameScreenGum":
+                    return GameScreenGum;
             }
             return null;
         }

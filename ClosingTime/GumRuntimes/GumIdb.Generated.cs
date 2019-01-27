@@ -31,6 +31,8 @@
                 GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("DefaultForms/TreeViewToggleButton", typeof(ClosingTime.GumRuntimes.DefaultForms.TreeViewToggleButtonRuntime));
                 GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("DefaultForms/UserControl", typeof(ClosingTime.GumRuntimes.DefaultForms.UserControlRuntime));
                 GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("LevelSelect", typeof(ClosingTime.GumRuntimes.LevelSelectRuntime));
+                GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("Timer", typeof(ClosingTime.GumRuntimes.TimerRuntime));
+                GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("VictoryOverlay", typeof(ClosingTime.GumRuntimes.VictoryOverlayRuntime));
                 GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("GameScreenGum", typeof(ClosingTime.GumRuntimes.GameScreenGumRuntime));
                 GumRuntime.ElementSaveExtensions.RegisterGueInstantiationType("MenuScreenGum", typeof(ClosingTime.GumRuntimes.MenuScreenGumRuntime));
                 
